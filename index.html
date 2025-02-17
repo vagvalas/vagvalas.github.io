@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VAGGOS VAL Portfolio</title>
+  <style>
+    /* GLOBAL RESET & BASE STYLES */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f0;
+      color: #333;
+      line-height: 1.6;
+      margin-top: 80px; /* space for fixed header */
+    }
+
+    /* FIXED HEADER */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      background: #333;
+      color: #fff;
+      z-index: 1000;
+    }
+    .topbar-wrapper {
+      max-width: 1400px;
+      margin: 0 auto;
+      height: 100%;
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column; /* We'll let desktop vs. mobile toggling happen below */
+    }
+
+    /* DESKTOP HEADER */
+    .desktop-header {
+      display: grid;           /* Use a grid to center the title truly */
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      width: 100%;
+      flex: 1;                 /* fill the vertical space in the 80px container */
+    }
+    .desktop-header .topbar-left,
+    .desktop-header .topbar-center,
+    .desktop-header .topbar-right {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start; /* We'll override for center & right below */
+    }
+    /* Left side: GitHub + mail icon */
+    .desktop-header .topbar-left a {
+      text-decoration: none;
+      color: #fff;
+      margin-right: 10px;
+      font-size: 1em;
+    }
+    .desktop-header .topbar-left img {
+      width: 32px;
+      height: 32px;
+      vertical-align: middle;
+      margin-right: 5px;
+    }
+    .desktop-header .topbar-left a.email img {
+      margin-right: 0;
+    }
+    /* Center: truly centered via the grid (1fr column) */
+    .desktop-header .topbar-center {
+      justify-content: center;
+      font-size: 1.5em;
+      font-weight: bold;
+      text-align: center;
+    }
+    /* Right side: "About Me" link */
+    .desktop-header .topbar-right {
+      justify-content: flex-end;
+    }
+    .desktop-header .topbar-right a {
+      text-decoration: none;
+      color: #fff;
+      font-size: 1em;
+      margin-right: 0;
+    }
+
+    /* MOBILE HEADER */
+    .mobile-header {
+      display: none; /* hidden on desktop */
+      flex-direction: column;
+      width: 100%;
+    }
+    @media (max-width: 768px) {
+      /* Hide desktop header, show mobile header */
+      .desktop-header {
+        display: none;
+      }
+      .mobile-header {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+      }
+      .mobile-header .topbar-row-1 {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        margin-top: 10px;
+      }
+      /* Left icons (GitHub + mail) */
+      .mobile-left-icons {
+        display: flex;
+        align-items: center;
+      }
+      .mobile-left-icons a {
+        text-decoration: none;
+        color: #fff;
+        font-size: 0.9em;
+        margin-right: 10px;
+      }
+      .mobile-left-icons img {
+        width: 28px; /* slightly smaller icons on mobile */
+        height: 28px;
+        vertical-align: middle;
+        margin-right: 5px;
+      }
+      .mobile-aboutme {
+        font-size: 0.9em;
+        text-decoration: none;
+        color: #fff;
+      }
+      /* Second row: portfolio title centered */
+      .topbar-row-2 {
+        width: 100%;
+        text-align: center;
+        margin-top: 5px;
+        font-size: 1.3em;
+        font-weight: bold;
+        padding: 0 20px;
+      }
+    }
+
+    /* HERO SECTION */
+    .hero {
+      background: #fff;
+      padding: 20px;
+    }
+    .hero-wrapper {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    /* DESKTOP HERO LAYOUT (≥769px) */
+    .hero-desktop {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .hero-desktop .hero-text {
+      width: 40%;
+      padding-right: 20px;
+      text-align: left;
+    }
+    .hero-desktop .hero-text h1 {
+      font-size: 3em;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    .hero-desktop .hero-text p {
+      font-size: 1.2em;
+      margin-top: 10px;
+    }
+    .hero-desktop .hero-image {
+      width: 60%;
+      min-height: 500px;
+      background: url('assets/portrait.png') right center / contain no-repeat;
+    }
+    /* MOBILE HERO LAYOUT (<769px) */
+    .hero-mobile {
+      display: none;
+    }
+    @media (max-width: 768px) {
+      .hero-desktop { display: none; }
+      .hero-mobile { display: block; }
+      .hero-mobile .hero-title {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      .hero-mobile .hero-title h1 {
+        font-size: 2.4em;
+        line-height: 1.2;
+        text-align: left;
+      }
+      .hero-mobile .hero-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+      .hero-mobile .hero-subtext {
+        width: 40%;
+        padding-right: 10px;
+        text-align: left;
+      }
+      .hero-mobile .hero-subtext p {
+        font-size: 0.75em;
+      }
+      .hero-mobile .hero-image {
+        width: 60%;
+        min-height: 330px;
+        background: url('assets/portrait.png') right center / contain no-repeat;
+      }
+    }
+
+    /* PROJECTS SECTION */
+    .projects-section {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 50px 20px;
+    }
+    .project {
+      margin-bottom: 50px;
+      position: relative;
+      display: block;
+    }
+    .project-text {
+      margin-bottom: 20px;
+      padding: 0 10px;
+    }
+    .project-text h2 {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+    .project-text h2 a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .project-text p {
+      font-size: 1em;
+    }
+    .project-image-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+      opacity: 0;
+      transition: opacity 0.5s linear;
+    }
+    /* DESKTOP PROJECTS LAYOUT (≥769px) */
+    @media (min-width: 769px) {
+      .project {
+        display: grid;
+        grid-template-columns: 40% 60%;
+        align-items: center;
+        height: 40vh;
+      }
+      .project-text {
+        padding: 20px;
+      }
+      .project-image-container {
+        position: sticky;
+        top: 5vh;
+        height: 40vh;
+        display: flex;
+        align-items: center;
+      }
+      .project-image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+      .projects-section {
+        padding-bottom: 25vh;
+      }
+    }
+    
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #333;
+      color: #fff;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="topbar-wrapper">
+      <!-- Desktop Header (Grid with 3 columns: left, center, right) -->
+      <div class="desktop-header">
+        <!-- Left side: GitHub + mail icons -->
+        <div class="topbar-left">
+          <a href="https://github.com/vagvalas" target="_blank" rel="noopener noreferrer">
+            <img src="assets/github.png" alt="GitHub">
+          </a>
+          <a class="email" href="mailto:info@vagval.com">
+            <img src="assets/mail.png" alt="Email">
+          </a>
+        </div>
+        <!-- Center: Title -->
+        <div class="topbar-center">
+          VAGGOS VAL Portfolio
+        </div>
+        <!-- Right side: About Me link -->
+        <div class="topbar-right">
+          <a href="#about">About Me</a>
+        </div>
+      </div>
+
+      <!-- Mobile Header (two rows) -->
+      <div class="mobile-header">
+        <!-- Row 1: icons on left, About Me on right -->
+        <div class="topbar-row-1">
+          <div class="mobile-left-icons">
+            <a href="https://github.com/vagvalas" target="_blank" rel="noopener noreferrer">
+              <img src="assets/github.png" alt="GitHub">
+            </a>
+            <a class="email" href="mailto:info@vagval.com">
+              <img src="assets/mail.png" alt="Email">
+            </a>
+          </div>
+          <a class="mobile-aboutme" href="#about">About Me</a>
+        </div>
+        <!-- Row 2: Title, centered -->
+        <div class="topbar-row-2">
+          VAGGOS VAL Portfolio
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-wrapper">
+      <!-- Desktop Hero -->
+      <div class="hero-desktop">
+        <div class="hero-text">
+          <h1>Evangelos Valassopoulos</h1>
+          <p>
+            Strong problem solver and versatile software developer with a deep respect for mathematical data and precision. 
+            Experienced in Python and C# development, workflow automation, and AI-driven applications. 
+            Skilled in integrating software across diverse platforms, from Kodi plugins to Hackintosh setups. 
+            Passionate about simplifying complexity through innovative solutions that enhance the end-user experience.
+          </p>
+        </div>
+        <div class="hero-image"></div>
+      </div>
+      <!-- Mobile Hero -->
+      <div class="hero-mobile">
+        <div class="hero-title">
+          <h1>Evangelos Valassopoulos</h1>
+        </div>
+        <div class="hero-content">
+          <div class="hero-subtext">
+            <p>
+              Strong problem solver and versatile software developer with a deep respect for mathematical data and precision. 
+            Experienced in Python and C# development, workflow automation, and AI-driven applications. 
+            Skilled in integrating software across diverse platforms, from Kodi plugins to Hackintosh setups. 
+            Passionate about simplifying complexity through innovative solutions that enhance the end-user experience.
+            </p>
+          </div>
+          <div class="hero-image"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS SECTION -->
+  <section class="projects-section">
+    <div class="project" data-index="0">
+      <div class="project-text">
+        <h2>
+          <a href="https://github.com/vagvalas/Song-Identifier" target="_blank" rel="noopener noreferrer">
+            Song-Identifier
+          </a>
+        </h2>
+        <p>Match any song playing through your PC speakers and more.</p>
+      </div>
+      <div class="project-image-container">
+        <img src="assets/Song_identifier.png" alt="Song-Identifier Screenshot">
+      </div>
+    </div>
+    <div class="project" data-index="1">
+      <div class="project-text">
+        <h2>
+          <a href="https://github.com/vagvalas/Firefox-Profile-Migrator" target="_blank" rel="noopener noreferrer">
+            Firefox Profile Migrator
+          </a>
+        </h2>
+        <p>Backup, copy, and restore Firefox's profile data.</p>
+      </div>
+      <div class="project-image-container">
+        <img src="assets/Firefox_Migrator.png" alt="Firefox Profile Migrator Screenshot">
+      </div>
+    </div>
+    <div class="project" data-index="2">
+      <div class="project-text">
+        <h2>
+          <a href="https://github.com/vagvalas/Screenshot-Generator" target="_blank" rel="noopener noreferrer">
+            Screenshot-Zoom-Generator
+          </a>
+        </h2>
+        <p>
+          Creates realistic screenshots of a class or meeting (needed for logs) over an extended period—mimicking Zoom or Teams meetings.
+        </p>
+      </div>
+      <div class="project-image-container">
+        <img src="assets/Screenshot-date-time-Generator.png" alt="Screenshot-Zoom-Generator Screenshot">
+      </div>
+    </div>
+    <div class="project" data-index="3">
+      <div class="project-text">
+        <h2>
+          <a href="https://github.com/vagvalas/Reports-Creator" target="_blank" rel="noopener noreferrer">
+            Reports-Creator
+          </a>
+        </h2>
+        <p>
+          Generates missing reports (xlsx) to document participants in online lessons (e.g., University), replicating Zoom's reporting system.
+        </p>
+      </div>
+      <div class="project-image-container">
+        <img src="assets/Reports_creator.png" alt="Reports-Creator Screenshot">
+      </div>
+    </div>
+    <div class="project" data-index="4">
+      <div class="project-text">
+        <h2>
+          <a href="https://github.com/vagvalas/repo.vagval" target="_blank" rel="noopener noreferrer">
+            VAGVAL's REPO for KODI
+          </a>
+        </h2>
+        <p>
+          My personal repo, free for all. It includes mirrored addons that are EOL and updated ones
+          (like Seren for Python 2 Kodi, &lt;19.0 Kodi).
+        </p>
+      </div>
+      <div class="project-image-container">
+        <img src="assets/repo_vagval.png" alt="VAGVAL's REPO for KODI Screenshot">
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    COPYRIGHT 2025
+  </footer>
+
+  <!-- SCROLL-DRIVEN OPACITY JS -->
+  <script>
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    window.onbeforeunload = function() { window.scrollTo(0, 0); };
+    window.onload = function() { window.scrollTo(0, 0); };
+
+    function updateProjectOpacity() {
+      const viewportCenter = window.innerHeight / 2;
+      const offset = window.innerHeight * 0.1;
+      const target = viewportCenter - offset;
+      const fadeRange = window.innerHeight * 0.5;
+      const threshold = window.innerHeight * 0.3;
+      const isAtBottom = (window.innerHeight + window.pageYOffset) >= (document.body.offsetHeight - 2);
+
+      document.querySelectorAll('.project').forEach(project => {
+        const img = project.querySelector('.project-image-container img');
+        if (!img) return;
+        if (isAtBottom && project === document.querySelector('.project:last-child')) {
+          img.style.opacity = 1;
+        } else {
+          const rect = project.getBoundingClientRect();
+          const projectCenter = rect.top + rect.height / 2;
+          const distance = Math.abs(projectCenter - target);
+          let opacity = 0;
+          if(distance <= threshold) {
+            opacity = 1 - (distance / threshold);
+          } else {
+            opacity = 0;
+          }
+          img.style.opacity = opacity;
+        }
+      });
+    }
+
+    window.addEventListener('scroll', updateProjectOpacity);
+    window.addEventListener('resize', updateProjectOpacity);
+    updateProjectOpacity();
+  </script>
+</body>
+</html>
